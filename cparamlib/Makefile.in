@@ -15,7 +15,7 @@
 @SET_MAKE@
 
 VPATH = @srcdir@
-am__is_gnu_make = { \
+am__is_gnu_make = {  \
   if test -z '$(MAKELEVEL)'; then \
     false; \
   elif test -n '$(MAKE_HOST)'; then \
