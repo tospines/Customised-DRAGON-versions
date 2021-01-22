@@ -10,13 +10,7 @@
     
     std::cout << "\nXSecs option " << in->spallationxsec << std::endl;
 
-    if (in->spallationxsec == Fluka){
-      //spallXsecFile = "data/FlukaSpallInclusiveXsec_last_cumulative.dat";
-      spallXsecFile = "data/Fluka_2020_DRAGON2.dat";
-      //spallXsecFile = "data/Fluka_2020Renorm.dat";
-      spallXsecFile_p = "data/Fluka_Proton_production_new.dat";
-    }
-    else if (in->spallationxsec == GalpropXSec){
+    if (in->spallationxsec == GalpropXSec){
       spallXsecFile = "data/galprop_eval_iso_cs_updated.dat";
       spallXsecFile_p = "";
     }
@@ -25,14 +19,6 @@
       spallXsecFile_p = "";}
     else if (in->spallationxsec == DRAGON2){
       spallXsecFile = "data/crxsecs_fragmentation_Evoli2019_cumulative_modified.dat";
-      //spallXsecFile = "data/HXSec_Carmelo_Best.dat"; //--> Carmelo renormalized in all channels without scaling
-      //spallXsecFile = "data/HXSec_Carmelo_Combined.dat";      
-      //spallXsecFile = "data/HXSec_FLUKA_Combined.dat";      
-      //spallXsecFile = "data/HXSec_GALPROP_Combined.dat";      
-      //spallXsecFile = "data/HXSec_Galprop_even_scaled_Best.dat"; //--> Galprop renormalized in all channels scaling from 500MeV to 10GeV
-      //spallXsecFile = "data/HXSec_Galprop_even_Best.dat"; //--> Galprop renormalized in all channels without scaling
-      //spallXsecFile = "data/HXSec_Galprop_Best.dat"; //--> Galprop renormalized in the main channels
-      //spallXsecFile = "data/Fluka_2020_DRAGON2.dat";
       spallXsecFile_p = "";}
     else {
       std::cout << "Wrong SpallationXSec option!! --> Taking the default one (DRAGON2 for nuclei, DRAGON treatment for Secondary protons) \n" << std::endl;
@@ -161,15 +147,11 @@
 		//spallationXsections[couple][is].first = AddedXSec_vec[is];
 		spallationXsections[couple][is].first = (spallationXsections[couple][is].first*(1.0 + He_abundance*default_Galpropobject.He_to_H_CS_ratio(spallationKineticEnergyVector[is],iz,ia,jz,ja)));
 
-		//if (iz == 14 & ia == 32 & jz == 14 & ja == 30)
-		//std::cout << spallationXsections[couple][is].first << " My final val " << spallationKineticEnergyVector[is] << " " << couple.first << " " << couple.second << std::endl;
 	      }
 	    }	 
 	  }
 	  else{ //For helium, tritium or deuterion creation we need Webber Spall XSecs
 	    spall[couple] = default_Galpropobject.GetXSec(iz, ia, jz, ja);
-	    //for(unsigned int a = 0; a < dimEn; a++) 
-	      //std::cout << spall[couple][a] << " Added " << iz << ia << "   " << jz << ja << std::endl;
 	  }
 	  
 	}
@@ -249,10 +231,7 @@
       std::pair<int,int> coupleppr(1001, 1001);  // Secondary protons, from protons
       std::pair<int,int> couplepHe(2004, 1001);  // Secondary protons, from Helium
       
-      //const double DBlog = 1./16.;
-      //const double DBlogap = 1./16.;
-      //const double DBprlog = 1./16.;
-      //const double DBlog = 1./16;
+
       for (int i = 0; i < dimprot; i++) { //Here we are filling at the beggining of the ApEl species all the energy vectors for FLUKA. If different
 	                                  //tables were to have different dimensions or different energy configurations this is not correct anymore.	
 	Elept[i] = pow(10., log10(1e-2)+double(i)*DBlog+0.5*DBlog);
@@ -268,8 +247,6 @@
       
       for (unsigned int j = 0; j < dimEn; j++){
 	Epr = DRAGONEnergyVector[j];
-	//momentum = sqrt(Epr*Epr + 2.0*mp*Epr);
-	//std::vector <double> vec_p, vec_He;
 	
 	for (unsigned int i = 0; i < dimEn; i++){	  
 	  cs_pp = 0.;
@@ -427,10 +404,6 @@
 	  infile.close();
 	  std::cout << "Filling sec antiprotons table " << std::endl; 	  
 
-	  //std::ofstream outfileFluk;	  
-	  //outfileFluk.open ("FlukaApXSec.txt");
-	  //outfileFluk << "PrimEnergy(GeV)\t" << "Ap_Energy(GeV)\t" << "XSec_p+H (mbarn)\t" << "XSec_p+He (mbarn)\t" << "total_p+gas (mbarn)\t" << "XSec_He+H (mbarn)\t" << "XSec_He+He (mbarn)\t" << "total_He+gas (mbarn)\t\n";
-	  
 	  for (unsigned int j = 0; j < dimEn; j++){
 	    Epr = DRAGONEnergyVector[j];
 	    
@@ -487,17 +460,14 @@
 	      }
 	      
 	      spall_apel[coupleappr][i][j] = Epr*(cs_pp + He_abundance*cs_pHe)*factorelpos;
-	      spall_apel[coupleapHe][i][j] = 4.0*Epr*(cs_Hep + He_abundance*cs_HeHe)*factorelpos;
-	      //outfileFluk << DRAGONEnergyVector[j] << "\t\t" << DRAGONEnergyVector[i] << "\t\t" << cs_pp*1000. << "\t\t" << cs_pHe*1000. << "\t\t" << 1000.*(cs_pp + He_abundance*cs_pHe) << "\t\t" << 1000.*cs_Hep << "\t\t" << 1000.*cs_HeHe << "\t\t" << 1000.*(cs_Hep + He_abundance*cs_HeHe) << "\n";
+	      spall_apel[coupleapHe][i][j] = 4.0*Epr*(cs_Hep + He_abundance*cs_HeHe)*factorelpos;	    
 
 	    }
-	    //outfileFluk << "\n\n\n";
+	  
 	  }
-	  //outfileFluk.close();
+	  
 	  std::cout << "\n Secondary Antiprotons OK!!\n" << std::endl;	
-	  
-	  
-	  //std::ifstream infile;
+
 	  infile.open(spallXsecFile_Tap.c_str());
 	  std::cout << "Opening tertiary antiproton spallXsec file " << spallXsecFile_Tap.c_str() << std::endl;
 	  if (!infile.is_open()){ std::cout << "problem opening TertAp file!!"<< std::endl;
@@ -677,21 +647,10 @@
 	  int i_lept;
 	  
 	  std::cout << "filling leptons... " << std::endl;
-	  //std::ofstream outfileel;
-	  //std::ofstream outfilepos;
-	  
-	  //outfileel.open ("FlukaElXSec.txt");
-	  //outfileel << "PrimEnergy(GeV)\t" << "El_Energy(GeV)\t" << "XSec_p+H (barn)\t" << "XSec_p+He (barn)\t" << "total_p+gas (barn)\t" << "XSec_He+H (barn)\t" << "XSec_He+He (barn)\t" << "total_He+gas (barn)\t\n";
-	  
-	  //outfilepos.open ("FlukaPosXSec.txt");
-	  //outfilepos << "PrimEnergy(GeV)\t" << "Pos_Energy(GeV)\t" << "XSec_p+H (barn)\t" << "XSec_p+He (barn)\t" << "total_p+gas (barn)\t" << "XSec_He+H (barn)\t" << "XSec_He+He (barn)\t" << "total_He+gas (barn)\t\n";
-	  
+
 	  for (unsigned int j=0; j<dimEn; j++){
 	    
-	    Epr = DRAGONEnergyVector[j];
-	    //momentum = sqrt(Epr*Epr + 2.0*mp*Epr);
-	    //std::vector<double> elp_vec, elHe_vec, posp_vec, posHe_vec;
-	    
+	    Epr = DRAGONEnergyVector[j];	    
 	    for (unsigned int i = 0; i < dimEn; i++) {
 	      
 	      cs_pp = 0.;
@@ -766,27 +725,13 @@
 		valuefix =  Matrix_Pos_HeHe[index];
 		valueup = Matrix_Pos_HeHe[index1];
 		cs_HeHe = valuefix*(1-u) + valueup*u;
-	      }
-	      //posp_vec.push_back(Epr*(cs_pp + He_abundance*cs_pHe)*factorelpos);
-	      //posHe_vec.push_back(4.0*Epr*(cs_Hep + He_abundance*cs_HeHe)*factorelpos);	
+	      }	
 	      
 	      spall_apel[couplepos][i][j] = Epr*(cs_pp + He_abundance*cs_pHe)*factorelpos;
 	      spall_apel[coupleposHe][i][j] = 4.0*Epr*(cs_Hep + He_abundance*cs_HeHe)*factorelpos;
-
-	      //outfilepos << Epr << "\t\t" << Eel << "\t\t" << cs_pp << "\t\t" << cs_pHe << "\t\t" << cs_pp + He_abundance*cs_pHe << "\t\t" << cs_Hep << "\t\t" << cs_HeHe << "\t\t" << cs_Hep + He_abundance*cs_HeHe << "\n";
 	    }
 	    
-	    //outfileel << "\n\n\n";
-	    //outfilepos << "\n\n\n";
-
-	    //spall_apel[coupleel].push_back(elp_vec);
-	    //spall_apel[coupleelHe].push_back(elHe_vec);
-	    
-	    //spall_apel[couplepos].push_back(posp_vec);
-	    //spall_apel[coupleposHe].push_back(posHe_vec);	
 	  }
-	  //outfileel.close();
-	  //outfilepos.close();	  
 	  
 	}//End table reading 
 	std::cout << "\n Leptons OK!! \n " << std::endl;
@@ -828,8 +773,6 @@
 	  
 	  spall[couple1].push_back(factor*beta[ie]*(spallationXsectionsInterpolated[couple1][ie].first + He_abundance*spallationXsectionsInterpolated[couple1][ie].second));
 	  
-	  //std::cout << couple1.first << " Added " << couple1.second << "   " << spall[couple1][ie] << std::endl;
-
 	}  //End of Energy loop
 	
       } // End of nuclei loop
@@ -865,64 +808,17 @@
           
 	  spall[couple1] = default_Galpropobject.GetXSec(iz, ia, jz, ja);
 
-	  //for (int g; g< dimEn; g++)
-	    //std::cout << "\n\n" <<  spall[couple1][g] << " " << couple1.first << " " << couple1.second << std::endl;
-	  //if (jz < 3){
-	  //for(unsigned int a = 0; a < dimEn; a++) 
-	  //    std::cout << spall[couple1][a] << " Added " << iz << ia << "   " << jz << ja << std::endl;
-	  //}
 	}
       }
     } //End Webber and Galprop option
 
     std::cout << "\n...General grid inter and extrapolation done\n\n" << std::endl << std::endl;
-    //TSpallationNetwork::Retrieve_XSecs(in, nuclei, coord);
-    //exit(1);
     
     return ;
     }
     
   
-/*
-std::vector<double> TGalpropXSec::GetXSec(int iz, int ia, int jz, int ja, std::vector<std::pair<double, double> > csmb_map, std::vector <double> spa_energy) {
-    int IZ1,IA1,IZ3,IA3, K_electron = 0;
-    int galdef_network_par=0; // temporary solution; value 1 caused problems in nuc_package
-    double branching_ratio,t_half;
-
-    const int diz=3;                // maximum delta Z considered
-    const double factor = Clight*1.e-27;
-   
-    std::vector<double> spalla = std::vector<double>(spa_energy.size(), 0.0);
-
-    // a loop over an intermediate state; final state must be as requested
-    for (IZ1=(jz-diz>1) ? jz-diz: 1; IZ1<=iz && IZ1<=jz+diz; IZ1++) {
-      for (IA1=(2*IZ1-4>ja) ? 2*IZ1-4: ja; IA1<ia && IA1<=2.5*IZ1+4.2; IA1++) {
-	// channel selection procedure	
-
-	if (IA1 < IZ1 || ia-IA1 < iz-IZ1) continue;
-
-	t_half = t_half / year;
-	
-	// skip if long-lived intermediate state
-	if(t_half>=t_half_limit                            // IMOS20010816
-	   && 100*IZ1+IA1!=100*jz+ja && 100*IZ3+IA3!=100*jz+ja) continue;
-	
-	for(unsigned int ip = 0; ip < csmb_map.size(); ip++){
-	  //if (iz == 14 & ia == 32 & jz == 14 & ja == 30){
-	  //std::cout <<  iz << "0" << ia << "   " << jz << "0" << ja << " " <<  csmb_map[ip].first << "  " << ip << std::endl;
-	  if (spalla[ip] == 0)
-	    spalla[ip] += (csmb_map[ip].first*(1.0 + He_abundance*TGalpropXSec::He_to_H_CS_ratio(spa_energy[ip],iz,ia,IZ1,IA1)));
-	  //std::cout << " " << spalla[ip] << "  " << spa_energy[ip] << " " << He_abundance*TGalpropXSec::He_to_H_CS_ratio(spa_energy[ip],iz,ia,IZ1,IA1) << "\n" << std::endl;
-	  //}
-	  
-  	}		
-      }   
-    } //End nuclei loops
-    
-    return spalla;
-}
-*/
-  
+ 
   std::vector<double> TGalpropXSec::GetXSec(int iz, int ia, int jz, int ja) {
     int IZ1,IA1,IZ3,IA3,kopt,info, K_electron =0;
     int galdef_network_par=0; // temporary solution; value 1 caused problems in nuc_package
@@ -961,14 +857,8 @@ std::vector<double> TGalpropXSec::GetXSec(int iz, int ia, int jz, int ja, std::v
 	
 	for(unsigned int ip = 0; ip < energy.size(); ip++){ 
 
-	  //if (iz == 14 & ia == 32 & jz == 14 & ja == 30){
-	  //std::cout << "\n\n" <<  iz << "0" << ia << "   " << jz << "0" << ja << "\n" << TGalpropXSec::isotope_cs(energy[ip]*1000.0,iz,ia,IZ1,IA1,kopt,&info) << std::endl;
-	    spalla[ip] += (TGalpropXSec::isotope_cs(energy[ip]*1000.0,iz,ia,IZ1,IA1,kopt,&info)*branching_ratio*(1.0+ He_abundance*TGalpropXSec::He_to_H_CS_ratio(energy[ip],iz,ia,IZ1,IA1))*beta[ip]*factor);	    
-	    //std::cout << "\n" << spalla[ip]/(factor*beta[ip]) << std::endl;
-	    //}
-	    //if (jz > 0)
-	    //std::cout << "\n\n" <<  iz << "0" << ia << "   " << jz << "0" << ja << "\n" << TGalpropXSec::isotope_cs(energy[ip]*1000.0,iz,ia,IZ1,IA1,kopt,&info) << std::endl;
-	}
+	  spalla[ip] += (TGalpropXSec::isotope_cs(energy[ip]*1000.0,iz,ia,IZ1,IA1,kopt,&info)*branching_ratio*(1.0+ He_abundance*TGalpropXSec::He_to_H_CS_ratio(energy[ip],iz,ia,IZ1,IA1))*beta[ip]*factor);	    
+	    }
 	
       } //ja1 //jz1
     }  
@@ -1576,10 +1466,7 @@ std::vector<double> TGalpropXSec::GetXSec(int iz, int ia, int jz, int ja, std::v
     }
 
     int Nelectrons = 374;
-    double DBlogpr = (log(ET[Nelectrons-1])-log(ET[0]))/(double)Nelectrons;
-    //cout << "ProdXsec.size() = " << ProdXsec.size() << " " << ProdXsec.size()/2 << endl;
-    //cout << "Matrix.size() = " << Matrix_El_pp.size() << " " << Matrix_El_pp.size()/Nelectrons << endl;
-    
+    double DBlogpr = (log(ET[Nelectrons-1])-log(ET[0]))/(double)Nelectrons;    
     gsl_spline *spline_ProdXsec_pp = gsl_spline_alloc(gsl_interp_cspline, Nelectrons);
     gsl_spline *spline_ProdXsec_He = gsl_spline_alloc(gsl_interp_cspline, Nelectrons);
     
@@ -2003,10 +1890,6 @@ void TSpallationNetwork::InitXSecWinkler(double factorelpos){
   std::pair<int,int> coupleappr(1001,-999);  // Secondary antiprotons, from protons
   std::pair<int,int> coupleapHe(2004,-999);  // Secondary antiprotons, from Helium
 
-  //std::ofstream oufileWin;
-  //oufileWin.open ("WinklerApXSec_interp.txt");
-  //oufileWin << "PrimEnergy(GeV)\t" << "Ap_Energy(GeV)\t" << "total_p+gas (mbarn)\t" << "total_He+gas (mbarn)\t\n";
-
   for (int e = 0; e < dimEn; e++){
     //std::vector <double> vec_pap_, vec_Heap_;
     for (int u = 0; u < dimEn; u++){ //Interpolation by nearest neighbor method -> for secondary energies
@@ -2065,16 +1948,7 @@ void TSpallationNetwork::InitXSecKamae(double factorelpos) {
   dimEn = DRAGONEnergyVector.size();
   double Eel;
   
-  //std::ofstream oufileel;
-  //std::ofstream oufilepos;
-
-  //oufileel.open ("KamaeElXSec.txt");
-  //oufileel << "PrimEnergy(GeV)\t" << "El_Energy(GeV)\t" << "XSec_p+H (barn)\t" << "XSec_p+He (barn)\t" << "total_p+gas (barn)\t" << "XSec_He+H (barn)\t" << "XSec_He+He (barn)\t" << "total_He+gas (mbarn)\t\n";
-
-  //oufilepos.open ("KamaePosXSec.txt");
-  //oufilepos << "PrimEnergy(GeV)\t" << "Pos_Energy(GeV)\t" << "XSec_p+H (barn)\t" << "XSec_p+He (barn)\t" << "total_p+gas (barn)\t" << "XSec_He+H (barn)\t" << "XSec_He+He (barn)\t" << "total_He+gas (barn)\t\n";
-
-  for (unsigned int j=0; j< dimEn; j++){
+   for (unsigned int j=0; j< dimEn; j++){
     double Epr = DRAGONEnergyVector[j];
     std::vector<double> elpxsec;
     std::vector<double> elHexsec;
@@ -2111,19 +1985,9 @@ void TSpallationNetwork::InitXSecKamae(double factorelpos) {
       spall_apel[couplepos][i][j] = Epr*(cs_pp + He_abundance*cs_pHe)*factorelpos;   // H
       spall_apel[coupleposHe][i][j] = 4.0*Epr*(cs_Hep + He_abundance*cs_HeHe)*factorelpos;   // He  
 
-      //oufileel << Epr << "\t\t" << Eel << "\t\t" << cs_pp << "\t\t" << cs_pHe << "\t\t" << cs_pp + He_abundance*cs_pHe << "\t\t" << cs_Hep << "\t\t" << cs_HeHe << "\t\t" << cs_Hep + He_abundance*cs_HeHe << "\n";
+     }
 
-      //oufilepos << Epr << "\t\t" << Eel << "\t\t" << cs_pp << "\t\t" << cs_pHe << "\t\t" << cs_pp + He_abundance*cs_pHe << "\t\t" << cs_Hep << "\t\t" << cs_HeHe << "\t\t" << cs_Hep + He_abundance*cs_HeHe << "\n";
-    }
-
-    //oufileel << "\n\n\n";
-    //oufilepos << "\n\n\n";
-
-
-  }
-  
-  //oufileel.close();
-  //oufilepos.close();
+   }
 
 } //End Kamae XSecs
 
