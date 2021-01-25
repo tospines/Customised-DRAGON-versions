@@ -40,7 +40,7 @@
   <SNR_Extra type="Ferriere" /> 
   <XCOmode type="SM96" />      
   <Diffusion type="Constant">
-    <VariableDelta />
+    <VariableD />
     <TwoZone /> 
     <Diff_table/>
     <normHalo value = "1." />
