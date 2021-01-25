@@ -32,5 +32,6 @@ To specify these parameters, the input xml file must contain, below the Diffusio
     <deltaA value="" />
 
 
- ### Please, if you use this version of the code, cite 
+ ### Please, if you use this version of the code, cite as Pedro de la Torre Luque. (2021, January 25). tospines/Customised-DRAGON2_beta: First release of the customized DRAGON2_beta code (Version v0.1). Zenodo. http://doi.org/10.5281/zenodo.4461732
+ 
 For any doubts about the implementation of these routines, please, email to pedro.delatorreluque@fysik.su.se
