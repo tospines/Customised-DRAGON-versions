@@ -1,10 +1,8 @@
 This folder includes:
 
-  - Routines for the fit of the B/C flux ratio with the DRAGON2 cross sections for two different parametrisations of the diffusion coefficient ("Source" and "Diffusion" hypotheses)
-  that differ in the origin of the hardening in the CR spectrum. It also containes the Webber (WNEW03) cross sections with the Source hypothesis.
+  - Routines for the fit of the B/C flux ratio with the DRAGON2 cross sections for two different parametrisations of the diffusion coefficient ("Source" and "Diffusion" hypotheses) that differ in the origin of the hardening in the CR spectrum. It also containes the Webber (WNEW03) cross sections with the Source hypothesis.
   These are employed and reported in Luque et. al, arXiv:2101.01547 (https://arxiv.org/abs/2101.01547) and Luque et al., IN PREPARISON.
   
   - Example routines for the implementation of the diffusion coefficient based on the plasma properties, including magnetosonic modes.
-   These calculations are reported in Fornieri et al, arXiv:2011.09197 (https://arxiv.org/abs/2011.09197). These routines require to have tables specifying the diffusion 
-   coefficient calculated at different energies for protons. The computation of these tables can be found in https://zenodo.org/record/4250807#.YA6UixYo82w
+   These calculations are reported in Fornieri et al, arXiv:2011.09197 (https://arxiv.org/abs/2011.09197). These routines require to have tables specifying the diffusion coefficient calculated at different energies for protons. The computation of these tables can be found in https://zenodo.org/record/4250807#.YA6UixYo82w
    
