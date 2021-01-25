@@ -26,7 +26,7 @@ In addition, there are other routines implemented for an inhomogeneous diffusion
 To implement the latter, the parametrisation of delta is delta(R) = delta_A*r + delta_B, where r is the galactic radius. 
 
 To specify these parameters, the input xml file must contain, below the Diffusion type instruction:     
-    <VariableDelta />
+    <VariableD />
     <!TwoZone />
     <deltaB value="" />
     <deltaA value="" />
