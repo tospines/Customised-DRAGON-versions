@@ -44,9 +44,9 @@
     <TwoZone /> 
     <Diff_table/>
     <normHalo value = "1." />
-    <Halo_table value = "data/D_Halo_Lhalo100.0_MA0.5_beta0.14.txt"/>
+    <Halo_table value = "examples/D_Halo_Lhalo100.0_MA0.5_beta0.14.txt"/>
     <normDisk value = "1." />
-    <Disk_table value = "data/D_disk_Ldisk100_MA0.4_xc1000000.txt"/>
+    <Disk_table value = "examples/D_disk_Ldisk100_MA0.4_xc1000000.txt"/>
     <D0_1e28 value="4.7" /> 
     <DiffRefRig value = "4" /> 
     <Delta value="0.42" />    
