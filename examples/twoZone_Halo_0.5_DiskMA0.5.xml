@@ -1,0 +1,82 @@
+<?xml version="3.1.0" ?>
+<Output>
+  <partialstore />
+  <fullstore />
+  <feedback value="2" />
+</Output>
+<Grid type="2D">
+  <Observer> 
+	<x value="8.3" />
+ 	<y value="0.0" />
+	<z value="0.0" />
+  </Observer>
+  <Rmax value="30" />
+  <L value="4." />
+  <DimR value="61" />
+  <DimZ value="401" /> 
+  <Ekmin value="0.3" />
+  <Ekmax value="300000." /> 
+  <Ekfactor value="1.3" />
+  <NuclearChain>
+    <Zmax value="14" />   
+    <Zmin value="1" />     
+    <!PropLepton />         
+    <!PropSecAntiProton />
+    <!PropExtraComponent /> 
+  </NuclearChain>
+</Grid>
+<Algorithm>
+  <OpSplit>
+    <Nrept value="60" />
+    <Dtfactor value="0.5" />
+    <Dtmin value="0.0001" />
+    <Dtmax value="32" />
+    <MaxIter value="1000000" />   
+  </OpSplit>
+</Algorithm>
+<Galaxy>
+  <Gas type="Galprop" />    
+  <SNR type="Ferriere" />  
+  <SNR_Extra type="Ferriere" /> 
+  <XCOmode type="SM96" />      
+  <Diffusion type="Constant">
+    <VariableDelta />
+    <TwoZone /> 
+    <Diff_table/>
+    <normHalo value = "1." />
+    <Halo_table value = "data/D_Halo_Lhalo100.0_MA0.5_beta0.14.txt"/>
+    <normDisk value = "1." />
+    <Disk_table value = "data/D_disk_Ldisk100_MA0.5_xc1000000.txt"/>
+    <D0_1e28 value="4.7" /> 
+    <DiffRefRig value = "4" /> 
+    <Delta value="0.42" />    
+    <zt value="4" />          
+    <etaT value="-0.40" />    
+    <L_connecting value = "0.010" />
+    <disk_size value = "4." /> 
+  </Diffusion>
+  <Reacceleration type="Ptuskin94"> 
+    <vA_kms value="0" />         
+  </Reacceleration>
+  <Convection>
+      <v0_kms value="0" /> 
+      <dvdz_kmskpc value="0." />     
+  </Convection>
+  <CrossSection type="DRAGON2" leptopt="Kamae" apopt="Winkler" ApCs="2" />  
+  <MagneticField type="Pshirkov"> 
+     <B0disk value="2.e-06" /> 
+     <B0halo value="4.e-06" /> 
+     <B0turb value="7.5e-06" />
+  </MagneticField>
+</Galaxy>
+
+<CR>
+  <ProtNormEn_GeV value="200.2879" /> 
+  <ElNormEn_GeV value="33." />   
+  <ProtNormFlux value="0.006299068" />  
+  <ElNormFlux value="0.0047" />   
+  <ElNormEnExtra_GeV value="300" />
+  <ElNormFluxExtra value=".67e-06" /> 
+  <!-- ************************** -->
+</CR>
+
