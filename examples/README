@@ -6,3 +6,5 @@ This folder includes:
   - Example routines for the implementation of the diffusion coefficient based on the plasma properties, including magnetosonic modes.
    These calculations are reported in Fornieri et al, arXiv:2011.09197 (https://arxiv.org/abs/2011.09197). These routines require to have tables specifying the diffusion coefficient calculated at different energies for protons. The computation of these tables can be found in https://zenodo.org/record/4250807#.YA6UixYo82w
    
+
+For any doubts about the implementation of these routines, please, email to pedro.delatorreluque@fysik.su.se
