@@ -52,7 +52,7 @@
       <v0_kms value="0" /> 
       <dvdz_kmskpc value="0." />     
   </Convection>
-  <CrossSection type="Webber03" leptopt="Fluka" apopt="Winkler" ApCs="2" />  
+  <CrossSection type="Webber03" leptopt="Kamae" apopt="Winkler" ApCs="2" />  
   <MagneticField type="Pshirkov"> 
      <B0disk value="2.e-06" /> 
      <B0halo value="4.e-06" /> 
