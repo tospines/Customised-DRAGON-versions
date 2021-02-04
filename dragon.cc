@@ -1,7 +1,5 @@
 /**
  * @file    dragon.cc
- * @author  Luca Maccione
- * @email   luca.maccione@lmu.de
  * @brief   Implementation of the DRAGON class. See the .h file
  */
 
