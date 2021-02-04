@@ -1,7 +1,5 @@
 /**
  * @file source.cc
- * @author Luca Maccione
- * @email luca.maccione@lmu.de
  * @brief In this file all the classes related to the model of the galaxy are implemented.
  */
 
