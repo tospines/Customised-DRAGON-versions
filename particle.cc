@@ -1,12 +1,3 @@
-/**
- * @file particle.cc
- * @author Luca Maccione, Daniele Gaggero
- * @email luca.maccione@desy.de
- * @email daniele.gaggero@sissa.it
- * @brief Implementation of TParticle class. See the .h file
- */
-
-
 #include "constants.h"
 #include "geometry.h"
 #include "particle.h"
