@@ -1,20 +1,73 @@
-This is a new customized version of the public DRAGON2 code which implements the production of antideuteron and antihelium-3 in the nuclei network. Both, the production of these antinuclei from collisions of cosmic rays with interestellar gas and thei production from a WIMP annihilating or decaying is incorporated. The tertiary contribution is also taken into account.
-To activate the option of propagating this particles, the user must add in the .xml file the following flag:
+This is a new customized version of the public DRAGON2 code, which implements the production of antideuteron and antihelium in the nuclei network. Both, the production of these antinuclei from collisions of cosmic rays with interestellar gas and their production from a generic WIMP annihilating or decaying is incorporated. The tertiary contribution is also taken into account.
+To activate the option of propagating this particles, the user must add in the .xml file the flag  <PropSecAntiDeuteron/> and/or <PropSecAntiHe3/> inside the NuclearChain field (see the example xml called "run_2D_Standard_AN.xml").
 
 The secondary production of antinuclei takes, as input, tables of cross sections from p+p, p+He, He+p, He+He and ap+p interactions. As default, these tables are those calculated as described in ......Ref here........, that are allocated in the "data" folder.
-Likewise, the default tables for the annihilation spectrum (dN/dE) of these antinuclei are given in tables. The tables calculated by the DRAGON group are the default option and are stored in the "DM" folder, along with those from the PPPC tables (http://www.marcocirelli.net/PPPC4DMID.html) for antinuclei. 
-For secondary production, we incorporate the option to give other tables defined by the user (in the same format as the default tables that are in the data), which must be specified in the input .xml file with the line: "". Then, the tables name and path should be speciefied. 
+In the case of using the default cross sections tables, the input file should contain "ANopt='DRAGONAN'" in the cross section field. Example:
+    <CrossSection type="DRAGON2" leptopt="Kamae" apopt="Winkler" ApCs="2" ANopt='DRAGONAN'>
+    </CrossSection>  
+In the default option, the cross sections from ap collisions with interstellar gas are not considered, given that their contribution is not higher than 5% of their total flux.
+For secondary production, we incorporate the option to give other tables defined by the user (in the same format as the default tables that are in the data), which must be specified in the cross section field as "ANopt='UserAN'". Then, the tables name and path should be speciefied. 
 This is an example:
+  <CrossSection type="DRAGON2" leptopt="Kamae" apopt="Winkler" ApCs="2" ANopt='UserAN'>
+     <Adtable_pp value="data/DRAGON_dbar_pp.dat" />
+     <Adtable_app value="data/DRAGON_dbar_app.dat" />
+     <Adtable_pHe value="data/DRAGON_dbar_pHe.dat" />
+     <Adtable_Hep value="data/DRAGON_dbar_Hep.dat" />
+     <Adtable_HeHe value="data/DRAGON_dbar_HeHe.dat" />
+     <AHe3table_pp value="data/DRAGON_hebar_pp.dat" />
+     <AHe3table_app value="data/DRAGON_hebar_app.dat" />
+     <AHe3table_pHe value="data/DRAGON_hebar_pHe.dat" />
+     <AHe3table_Hep value="data/DRAGON_hebar_Hep.dat" />
+     <AHe3table_HeHe value="data/DRAGON_hebar_HeHe.dat" />
+   </CrossSection>  
 
-In addition, instead of tables of inclusive cross sections, there is the option of giving tables of multiplicity, such that DRAGON takes it and multiply them by the inelastic cross sections of these particles to get the inclusive cross sections. To make use of this option, the flag... should be added to the xml file.
+In addition, instead of tables of inclusive cross sections, there is the option of giving tables of multiplicity for this antinuclei (always in the same format), such that DRAGON takes them and multiply them by the inelastic cross sections of these particles to get the inclusive cross sections. To make use of this option, the flag "<DRAGON_IneXSec />" should be added inside the cross sections field.
 
-There is also the option of giving only a table
+There is also the option of giving only a table for the p+p interaction and scale those cross sections to account for the p+He, He+p and He+He interactions, using a scaling that goes as A^0.9, where A is the mass number of the antinucleus. This can be activated inserting the flag "<Scale_pAd />" and/or "<Scale_pAHe3 />" inside the cross sectio field.
+  
+  
+Likewise, the default tables for the annihilation yield spectrum (dN/dE) of these antinuclei are given in tables. The tables calculated by the DRAGON group, as describied in ......Ref......., are the default option and are stored in the "DM" folder, along with those obtained from the PPPC tables (http://www.marcocirelli.net/PPPC4DMID.html) for antideuterons.
+For WIMP production, the user only must specify the path and name of the table (in the same format as the DRAGON2 default tables, in the DM folder). An example of the dark matter block is:
+    <DarkMatter Reaction="Annihilation" Model="SelfTable" Profile="NFW">   
+       <PropDMAntiDeuteron />  
+       <PropDMAntiHe3 />   
+       <Mass value="100." /> 
+       <SigmaV value="2.9e-26" />        
+       <SSDensity value="0.43" />       
+       <AntiHe3Datafile value="DM/bb_100GeV_AHe.dat" />
+       <AntideuteronDatafile value="DM/bb_100GeV_Ad.dat" />
+    </DarkMatter> 
+More information on this is available in the example xml files given in this repository and in the example file given in https://github.com/cosmicrays/DRAGON2-Beta_version/blob/master/examples/run_2D_DM.xml.
 
-For WIMP production, the user only must specify the path and name of the table (in the same format as the DRAGON2 default tables, in the DM folder), as in this example:
 
-Some other upgrades have been done with respect to former version of the customized-DRAGON code (https://github.com/tospines/Customised-DRAGON-versions/tree/main/Custom_DRAGON2_v1): 
-  - Antiproton cross sections scaling factors
-  - Positron and leptons tables of secondary production from a user...
-  - Scale factors for the cross sectins of B, Be, Li and F production can be given as input parameter in the .xml file. An example is:
-  - 3D distributions tested. example with spiral arm distributions.
+Some other upgrades have been done with respect to the former version of the customized-DRAGON code (https://github.com/tospines/Customised-DRAGON-versions/tree/main/Custom_DRAGON2_v1): 
+  - Antiproton contribution from heavy nuclei are added via a mass-scaling factor that can be adjusted in the input file. Specifically, the contribution to the antiproton flux for nuclei heavier than He is included by scaling the p+p interaction, following a mass-scaling of the form A^s, where s is a parameter that can be adjusted by the user adding the flag <Ap_A_Scal value="1." /> in the cross section field. The default value of s is 0.9. 
+     This has been similarly defined for the production of positrons and electrons, which can be adjusted with the flags <Pos_A_Scal value="1."/> and <El_A_Scal value="1."/> respectively.
+  - Tables for secondary production of positrons and electrons defined by the user. If a user wants to use a table leptons cross sections different to the one predefined in the code, the flag leptopt="LeptUser" must be inserted. 
+     An example is:
+        <CrossSection type="DRAGON2" leptopt="LeptUser" apopt="Winkler" ApCs="2" ANopt='UserAN'>
+           <User_El_pp value="data/e-_pp.dat"/>
+           <User_El_pHe value="data/e-_pHe.dat"/>
+           <User_El_Hep value="data/e-_Hep.dat"/>
+           <User_El_HeHe value="data/e-_HeHe.dat"/>
+           <User_Pos_pp value="data/e+_pp.dat"/>
+           <User_Pos_pHe value="data/e+_pHe.dat"/>
+           <User_Pos_Hep value="data/e+_Hep.dat"/>
+           <User_Pos_HeHe value="data/e+_HeHe.dat"/>
+           ...
+        </CrossSection>
+  - Scale factors for the cross sectins of Ap, B, Be, Li and F production can be given as input parameter in the .xml file. An example is:
+        <CrossSection type="DRAGON2" leptopt="Kamae" apopt="Winkler" ApCs="2" ANopt='DRAGONAN'>
+           <Ap_XS_Scal value="1.11" />
+           <B_XS_Scal value="0.99" />  
+           <Be_XS_Scal value="0.92" /> 
+           <Li_XS_Scal value="0.88" /> 
+           <F_XS_Scal value="0.8" />   
+           ...
+        </CrossSection>  
+  - Different spiral arm 3D distributions of the gas and sources have been tested for the full nuclei chain succesfully. An example with spiral arm distributions is given in this repository.
   - Minor bugs found related to the model of the spatial-dependence of the diffusion coefficient were corrected.
+ 
+ 
+
+For any doubts about the implementation of these routines, please, email to pedro.delatorreluque@fysik.su.se
