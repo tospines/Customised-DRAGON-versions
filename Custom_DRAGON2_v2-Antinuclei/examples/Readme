@@ -1,1 +1,2 @@
 Example input files accounting for the production of antinuclei in a 2D model of the gas density and source distribution and a 3D model (following the Steiman-Cameron et al distribution - https://iopscience.iop.org/article/10.1088/0004-637X/722/2/1460).
+These input files allow the reproduction of the main fluxes and ratios for which we have experimental measurements (e.g. CNO fluxes, B/C, Be/O, Li/C, etc...) and give a prediction on the flux of antinuclei expected at Earth.
