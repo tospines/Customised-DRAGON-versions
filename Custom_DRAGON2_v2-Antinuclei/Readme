@@ -1,7 +1,7 @@
 This is a new customized version of the public DRAGON2 code, which implements the production of antideuteron and antihelium in the nuclei network. Both, the production of these antinuclei from collisions of cosmic rays with interestellar gas and their production from a generic WIMP annihilating or decaying is incorporated. The tertiary contribution is also taken into account.
 To activate the option of propagating this particles, the user must add in the .xml file the flag  <PropSecAntiDeuteron/> and/or <PropSecAntiHe3/> inside the NuclearChain field (see the example xml called "run_2D_Standard_AN.xml").
 
-The secondary production of antinuclei takes, as input, tables of cross sections from p+p, p+He, He+p, He+He and ap+p interactions. As default, these tables are those calculated as described in ......Ref here........, that are allocated in the "data" folder.
+The secondary production of antinuclei takes, as input, tables of cross sections from p+p, p+He, He+p, He+He, ap+p and ap+He interactions. As default, these tables are those calculated as described in ......Ref here........, that are allocated in the "data" folder.
 In the case of using the default cross sections tables, the input file should contain "ANopt='DRAGONAN'" in the cross section field. Example:
     <CrossSection type="DRAGON2" leptopt="Kamae" apopt="Winkler" ApCs="2" ANopt='DRAGONAN'>
     </CrossSection>  
@@ -12,10 +12,12 @@ This is an example:
      <Adtable_pp value="data/DRAGON_dbar_pp.dat" />
      <Adtable_app value="data/DRAGON_dbar_app.dat" />
      <Adtable_pHe value="data/DRAGON_dbar_pHe.dat" />
+     <Adtable_apHe value="data/DRAGON_dbar_apHe.dat" />
      <Adtable_Hep value="data/DRAGON_dbar_Hep.dat" />
      <Adtable_HeHe value="data/DRAGON_dbar_HeHe.dat" />
      <AHe3table_pp value="data/DRAGON_hebar_pp.dat" />
      <AHe3table_app value="data/DRAGON_hebar_app.dat" />
+     <AHe3table_apHe value="data/DRAGON_hebar_apHe.dat" />
      <AHe3table_pHe value="data/DRAGON_hebar_pHe.dat" />
      <AHe3table_Hep value="data/DRAGON_hebar_Hep.dat" />
      <AHe3table_HeHe value="data/DRAGON_hebar_HeHe.dat" />
