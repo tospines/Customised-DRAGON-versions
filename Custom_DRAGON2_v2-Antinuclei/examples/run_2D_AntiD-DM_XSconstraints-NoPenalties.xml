@@ -58,27 +58,12 @@
       <v0_kms value="0" /> 
       <dvdz_kmskpc value="0." />     
   </Convection>
-  <CrossSection type="DRAGON2" leptopt="Kamae" apopt="Winkler" ApCs="2" ANopt='UserAN'>
-    <!B_XS_Scal value="1.0" />
-    <!Be_XS_Scal value="1." />
-    <!Li_XS_Scal value="1.0" />
+  <CrossSection type="DRAGON2" leptopt="Kamae" apopt="Winkler" ApCs="2" ANopt='DRAGONAN'>
+    <B_XS_Scal value="1.0" />
+    <Be_XS_Scal value="1." />
+    <Li_XS_Scal value="1.0" />
     <!F_XS_Scal value="0.80" />
     <Ap_XS_Scal value="1.11" />    
-    <!DRAGON_IneXSec />
-    <!Scale_pAd />
-    <Adtable_pp value="DRAGON_dbar_pp.dat" />
-    <Adtable_pHe value="DRAGON_dbar_pHe.dat" />
-    <Adtable_app value="DRAGON_dbar_pp.dat" />
-    <Adtable_apHe value="DRAGON_dbar_pHe.dat" />
-    <Adtable_Hep value="DRAGON_dbar_Hep.dat" />
-    <Adtable_HeHe value="DRAGON_dbar_HeHe.dat" />
-    <!Scale_pAHe3 />
-    <AHe3table_pp value="DRAGON_hebar_pp.dat" />
-    <AHe3table_pHe value="DRAGON_hebar_pHe.dat" />
-    <AHe3table_app value="DRAGON_hebar_pp.dat" />
-    <AHe3table_apHe value="DRAGON_hebar_pHe.dat" />
-    <AHe3table_Hep value="DRAGON_hebar_Hep.dat" />
-    <AHe3table_HeHe value="DRAGON_hebar_HeHe.dat" />
   </CrossSection>  
   <MagneticField type="Pshirkov"> 
     <B0disk value="2.e-06" /> 
