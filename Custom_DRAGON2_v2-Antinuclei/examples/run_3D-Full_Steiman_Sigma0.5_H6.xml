@@ -24,8 +24,8 @@
     <!PropLepton />         <!-- The code propagates leptonic species (optional) -->
     <!PropExtraComponent /> <!-- The code propagates an extra primary leptonic component with different spectrum (optional) -->
     <PropSecAntiProton />
-    <!PropSecAntiDeuteron/>
-    <!PropSecAntiHe3/>
+    <PropSecAntiDeuteron/>
+    <PropSecAntiHe3/>
   </NuclearChain>
 </Grid>
 <Algorithm>
