@@ -1,0 +1,118 @@
+<?xml version="3.1.0" ?>
+<Output>
+  <partialstore />
+  <fullstore />
+  <feedback value="2" />
+</Output>
+<Grid type="2D">
+  <Observer> 
+	<x value="8.3" />
+ 	<y value="0.0" />
+	<z value="0.0" />
+  </Observer>
+  <Rmax value="20" />
+  <L value="4.72" />
+  <DimR value="81" />
+  <DimZ value="81" /> 
+  <Ekmin value="0.001" />
+  <Ekmax value="10090." /> 
+  <Ekfactor value="1.1" />
+  <NuclearChain>
+    <Zmax value="14" />    
+    <Zmin value="1" />     
+    <PropLepton />         
+    <PropSecAntiProton />
+    <PropSecAntiDeuteron/>
+    <PropSecAntiHe3/>
+    <PropExtraComponent /> 
+  </NuclearChain>
+</Grid>
+<Algorithm>
+  <OpSplit>
+    <Nrept value="50" />
+    <Dtfactor value=".25" />
+    <Dtmin value="0.0001" />
+    <Dtmax value="64." />   
+  </OpSplit>
+</Algorithm>
+<Galaxy>
+  <Gas type="Galprop" />    
+  <SNR type="Ferriere" />  
+  <SNR_Extra type="Ferriere" /> 
+  <XCOmode type="SM96" />      
+  <Diffusion type="Constant"> 
+    <BreakDiff/>
+    <delta_H value="0.33" />
+    <rho_H value="312." />
+    <s_H value="0.042" />
+    <D0_1e28 value="4.53" /> 
+    <DiffRefRig value = "4" /> 
+    <Delta value="0.47" />    
+    <zt value="4" />          
+    <etaT value="-0.91" />    
+  </Diffusion>
+  <Reacceleration type="Ptuskin94"> 
+    <vA_kms value="13.06" />         
+  </Reacceleration>
+  <Convection>
+      <v0_kms value="0" /> 
+      <dvdz_kmskpc value="0." />     
+  </Convection>
+  <CrossSection type="DRAGON2" leptopt="Kamae" apopt="Winkler" ApCs="2" ANopt='UserAN'>
+    <!B_XS_Scal value="0.99" />    <!-- 0.99 -->
+    <!Be_XS_Scal value="0.92" />   <!-- 0.92 -->
+    <!Li_XS_Scal value="0.88" />   <!-- 0.88 -->
+    <!F_XS_Scal value="0.80" />    <!-- 0.80 -->
+    <Ap_XS_Scal value="1.09" />   <!-- 1.09 -->
+    <!DRAGON_IneXSec />
+    <!Scale_pAd />
+    <Adtable_pp value="DRAGON_dbar_pp.dat" />
+    <Adtable_pHe value="DRAGON_dbar_pHe.dat" />
+    <Adtable_app value="DRAGON_dbar_pp.dat" />
+    <Adtable_apHe value="DRAGON_dbar_pHe.dat" />
+    <Adtable_Hep value="DRAGON_dbar_Hep.dat" />
+    <Adtable_HeHe value="DRAGON_dbar_HeHe.dat" />
+    <!Scale_pAHe3 />
+    <AHe3table_pp value="DRAGON_hebar_pp.dat" />
+    <AHe3table_pHe value="DRAGON_hebar_pHe.dat" />
+    <AHe3table_app value="DRAGON_hebar_pp.dat" />
+    <AHe3table_apHe value="DRAGON_hebar_pHe.dat" />
+    <AHe3table_Hep value="DRAGON_hebar_Hep.dat" />
+    <AHe3table_HeHe value="DRAGON_hebar_HeHe.dat" />
+  </CrossSection>  
+  <MagneticField type="Pshirkov"> 
+    <B0disk value="2.e-06" /> 
+    <B0halo value="4.e-06" /> 
+    <B0turb value="7.5e-06" />
+  </MagneticField>
+</Galaxy>
+
+<CR>
+  <ProtNormEn_GeV value="102.389" /> 
+  <ElNormEn_GeV value="33." />   
+  <ProtNormFlux value="0.0415" />  
+  <ElNormFlux value="0.00455" />   
+  <ElNormEnExtra_GeV value="300" />
+  <ElNormFluxExtra value=".66e-06" /> 
+  <!-- ************************** -->
+ <InjectionIndexElectrons>
+      <rho_0 value="10." />
+      <rho_1 value="52." />
+      <!--rho_2 value="800." /-->
+      <alpha_0 value="2.35" />
+      <alpha_1 value="2.79" />
+      <alpha_2 value="2.48" />
+      <!--alpha_3 value="4.8" /-->
+      <CutoffRigEl value="7000." />
+  </InjectionIndexElectrons>
+  <!-- ************************** -->
+  <InjectionIndexExtraComponent>
+       <rho_0 value="3" />
+       <!--rho_1 value="50." /-->
+       <alpha_0 value="1.76" />
+       <alpha_1 value="1.76" />
+       <!--alpha_2 value="1.9" /-->
+       <CutoffRigExtra value="1000." />
+  </InjectionIndexExtraComponent>
+  <!-- ************************** -->
+</CR>

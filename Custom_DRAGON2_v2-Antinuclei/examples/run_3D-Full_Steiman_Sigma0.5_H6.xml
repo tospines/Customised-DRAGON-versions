@@ -1,0 +1,161 @@
+<?xml version="3.1.0" ?>
+<Output>
+  <fullstore />    <!-- The code writes the complete (r,z,p) grid of propagated particles for each species on a FITS file (optional) -->
+  <partialstore />
+  <feedback value="1" />
+</Output>
+<Grid type="3D">          <!-- Number of spatial dimensions. Options: 2D, 3D -->
+  <Observer> 
+	<x value="8.3" /> 
+ 	<y value="0.0" />
+	<z value="0.0" />
+  </Observer> 
+  <Rmax value="20" />   <!-- Maximum value of Galactocentric radius (R) in kpc -->
+  <L value="6." />       <!-- Halo size in kpc. The Galaxy extends from -L to L -->
+  <DimX value="41"/>   <!-- Number of grid points along X -->
+  <DimY value="41" />   <!-- Number of grid points along Y --> 
+  <DimZ value="21" />   <!-- Number of grid points along Z --> 
+  <Ekmin value="0.01" />       <!-- Miminum kinetic energy of propagated particles in GeV -->
+  <Ekmax value="10000." />   <!-- Maximum kinetic energy of propagated particles in GeV --> 
+  <Ekfactor value="1.15" />  <!-- Logaritmic spacing of energy grid. E[i] = exp( ln(Ekmin) + i ln(Ekfactor) ) -->
+  <NuclearChain>
+    <Zmax value="14" />    <!-- Maximum atomic number of propagated particles -->
+    <Zmin value="1" />     <!-- Minimum atomic number of propagated particles -->
+    <!PropLepton />         <!-- The code propagates leptonic species (optional) -->
+    <!PropExtraComponent /> <!-- The code propagates an extra primary leptonic component with different spectrum (optional) -->
+    <PropSecAntiProton />
+    <!PropSecAntiDeuteron/>
+    <!PropSecAntiHe3/>
+  </NuclearChain>
+</Grid>
+<Algorithm>
+  <OpSplit>
+    <!-- The code starts with dt = Dtmax; after Nrept iterations, the code rescales dt by the factor Dtfactor; this process is iterated until Dtmin is reached --> 
+    <Nrept value="30" />          <!-- Number of iterations before changing timestep -->
+    <Dtfactor value=".25" />      <!-- Rescaling factor of the time step     -->
+    <Dtmin value="0.0001" />       <!-- Minimum time step in Myr -->
+    <Dtmax value="64." />         <!-- Maximum time step in Myr -->
+  </OpSplit>
+</Algorithm>
+<Galaxy>
+  <Gas type="Galprop" />   <!-- Gas model; options: BronfFerr, NS, Galprop, Uniform --> 
+  <SNR type="Ferriere" />  <!-- Source distribution for the primary components; options: Lorimer, Galprop, Ferriere, OneRing, Rings -->
+  <SNR_Extra type="Ferriere" /> <!-- Source distribution for the extra component; options: the same as SNRType  (optional) -->
+<!-- ************************** -->
+    <SpiralArms type="Standard"> <!-- Optional block - TO BE USED ONLY IN 3D MODE -->
+      <SpiralWidth value="0.5" /> <!-- Width of spiral arm in kpc -->
+      <NumArms value="4" />  <!-- Number of spiral arms --> 
+      <K_1 value="4.17" />
+      <r0_1 value="0.38" />
+      <theta0_1 value="0" />
+      <K_2 value="4.13" />
+      <r0_2 value="0.25" />
+      <theta0_2 value="0." />
+      <K_3 value="4.02" />
+      <r0_3 value="0.45" />
+      <theta0_3 value="0." />
+      <K_4 value="3.58" />
+      <r0_4 value="0.61" />
+      <theta0_4 value="0." />
+      <KappaSource value="1" />   <!-- Do you want to apply the spiral arm pattern to the sources? 1=true -->
+      <KappaGasH2  value="1" />   <!-- Do you want to apply the spiral arm pattern to the H2 gas? 1=true -->
+      <KappaGasHI  value="1" />   <!-- Do you want to apply the spiral arm pattern to the HI gas? 1=true -->
+      <KappaGasHII value="1" />   <!-- Do you want to apply the spiral arm pattern to the HII gas? 1=true -->
+      <KappaISRFDust       value="1" /> <!-- Do you want to apply the spiral arm pattern to the ISRF (dust component)?      1=true -->
+      <KappaISRFStarlight  value="1" /> <!-- Do you want to apply the spiral arm pattern to the ISRF (starlight component)? 1=true -->
+   </SpiralArms>
+<!-- ************************** -->
+  <XCOmode type="SM96" />        <!-- Model for the X_CO factor; options: SM96, galprop_2004, galprop_2010, constant --> 
+  <Diffusion type="Constant"> <!-- Spatial distribution of the diffusion coefficient; options: Constant, Exp, Qtau -->
+    <BreakDiff/>
+    <delta_H value="0.3" />
+    <rho_H value="312." />
+    <s_H value="0.04" />
+    <D0_1e28 value="8.4" />   <!-- Normalization of the diffusion coefficient at reference rigidity DiffRefRig Unit: 10^28 cm^2/s, was 3.2 with Nucl-p Xsec spall -->
+    <DiffRefRig value = "4" /> <!-- Reference rigidity for the normalization of the diffusion coefficient -->
+    <Delta value="0.49" />    <!-- Slope of the diffusion coefficient spectrum -->
+    <!--zt value="4" /-->          <!-- Scale heigth of the diffusion coefficient, useful in Exp mode: D(z) \propto exp(z/zt) (optional) -->
+    <etaT value="-0.75" />       <!-- Low energy correction factor of the diffusion coefficient: D \propto beta^etaT  -->
+  </Diffusion>
+  <Reacceleration type="Ptuskin94"> <!-- Optional block -->
+    <vA_kms value="13.43" />          <!-- Alfvén velocity in km/s was 23.5 with Nucl-p Xsec spall -->
+  </Reacceleration>
+  <Convection>
+      <v0_kms value="0" /> 
+      <dvdz_kmskpc value="0." />     
+  </Convection>
+  <CrossSection type="DRAGON2" leptopt="Kamae" apopt="Winkler" ApCs="2" ANopt='DRAGONAN'> <!-- Model for cross sections. leptopt is the model for electron and positron production; options: Kamae, GalpropTable -->
+    <B_XS_Scal value="0.97" />
+    <Be_XS_Scal value="0.92" />
+    <Li_XS_Scal value="0.86" />
+    <!F_XS_Scal value="0.80" />
+    <Ap_XS_Scal value="1.07" />
+    <!DRAGON_IneXSec />
+    <!Scale_pAd />
+    <!Scale_pAHe3 />
+  </CrossSection>  
+  <MagneticField type="Pshirkov"> <!-- Model for the magnetic field. Options: Pshirkov, Farrar, Uniform, Toymodel -->
+    <B0disk value="2.e-06" /> <!-- Useful for Pshirkov field: halo regular field normalization in Gauss -->
+    <B0halo value="4.e-06" /> <!-- Useful for Pshirkov field: turbulent regular field normalization in Gauss -->
+    <B0turb value="7.5e-06" />
+  </MagneticField>
+</Galaxy>
+
+<CR>
+  <ProtNormEn_GeV value="101." />  <!-- Reference energy for nuclei normalization in GeV -->
+  <ElNormEn_GeV value="100." />   <!-- Reference energy for primary electron normalization in GeV --> 
+  <ProtNormFlux value="0.0428" />  <!-- Proton flux at reference energy   for normalization; in DRAGON units: GeV^-1 m^-2 s^-1 sr^-1 -->
+  <ElNormFlux value="1.4e-4" />   <!-- Electron flux at reference energy for normalization; in DRAGON units: GeV^-1 m^-2 s^-1 sr^-1 -->   
+  <ElNormEnExtra_GeV value="300" />     <!-- Reference energy for primary electron extra component normalization in GeV -->
+  <ElNormFluxExtra value=".7e-06" />  <!-- Extra component flux at reference energy; in DRAGON units: GeV^-1 m^-2 s^-1 sr^-1 -->
+  
+  <!-- ************************** -->
+  <InjectionIndexElectrons> <!-- You can add an arbitrary number of breaks!! -->
+      <rho_0 value="3.5" />   <!-- Position of first break (rigidity) in GV -->   
+      <rho_1 value="95." />   <!-- Position of first break (rigidity) in GV -->   
+      <rho_2 value="4500." />   <!-- Position of first break (rigidity) in GV -->   
+      <alpha_0 value="0.9" /> <!-- First injection slope for electrons -->
+      <alpha_1 value="2.6" /> <!-- First injection slope for electrons -->
+      <alpha_2 value="2.1" /> <!-- First injection slope for electrons -->
+      <alpha_3 value="5.5" />
+      <CutoffRigEl value="2000000." /> 
+  </InjectionIndexElectrons>     
+  <!-- ************************** -->
+  <InjectionIndexExtraComponent>
+       <rho_0 value="1." />
+       <rho_1 value="5." />
+       <rho_2 value="50." />
+       <alpha_0 value="1." />
+       <alpha_1 value="1." />
+       <alpha_2 value="1.65" />
+       <alpha_3 value="1.65" />
+       <CutoffRigExtra value="2000." /> 
+  </InjectionIndexExtraComponent>    
+  <!-- ************************** -->
+</CR>
+
+
+<!-- **************** -->
+<!-- DARK MATTER PART -->
+<!-- **************** -->
+<DarkMatter Reaction="Annihilation" Model="SelfTable" Profile="NFW">
+    <!-- Reaction can be "Annihilation" or "Decay", (spectrum) Model can be "SelfTable" or "Delta", (density) Profile can be -->
+    <!PropDMLepton />       <!-- If this flag is specified, leptons originating from DM annihilation/decay are computed -->
+    <!PropDMAntiProton />   <!-- If this flag is specified, antiprotons originating from DM annihilation/decay are computed -->
+    <!PropDMAntiDeuteron />   <!-- If this flag is specified, antiprotons originating from DM annihilation/decay are computed -->
+    <!PropDMAntiHe3 />   <!-- If this flag is specified, antiprotons originating from DM annihilation/decay are computed -->
+    <Mass value="107.16" />  <!-- DM particle mass in GeV -->
+<!-- **************** -->
+    <!-- LifeTime value="1e26" -->   <!-- if Decay is specified, the lifetime in seconds -->
+    <SigmaV value="2.33e-26" />         <!-- if Annihilation is specified, the <sigma v> in cm^3/2 -->
+<!-- **************** -->
+    <SSDensity value="0.43" />       <!-- Dark Matter local energy density in GeV/cm^3 -->
+    <!EkDelta value="10." />         <!-- if Delta is specified as a spectrum model, this is the energy in GeV at which partic -->
+    <AntiHe3Datafile value="DM/bb_100GeV_AHe.dat" />
+    <AntideuteronDatafile value="DM/bb_100GeV_Ad.dat" />
+    <!-- if SelfTable is specified as a spectrum model, this is the datafile with the inj spectrum in GeV^-1 for antiDeuteron -->
+    <!--Channel value="17" /-->
+</DarkMatter>
+<!-- **************** -->
+<!-- **************** -->
+
