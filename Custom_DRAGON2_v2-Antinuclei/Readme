@@ -70,6 +70,7 @@ Some other upgrades have been done with respect to the former version of the cus
   - Different spiral arm 3D distributions of the gas and sources have been tested for the full nuclei chain succesfully. An example with spiral arm distributions is given in this repository.
   - Minor bugs found related to the model of the spatial-dependence of the diffusion coefficient were corrected.
  
- 
+
+Different DM tables in the format readable by DRAGON2 are located in the DM/ folder. The tables for antideuterons and antihelium are calculated from Pythia v8.308, as detailed in an upcoming work. Here, tables extracted from the PPPC table (http://www.marcocirelli.net/PPPC4DMID.html) are stored in different subfolders (for antiprotons, antideuterons and positrons).
 
 For any doubts about the implementation of these routines, please, email to pedro.delatorreluque@fysik.su.se
